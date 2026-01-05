@@ -4,14 +4,19 @@ import { AIMode } from '@/types';
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || 'demo-key';
 const genAI = new GoogleGenerativeAI(apiKey);
 
+// Allow overriding model choices via env to stay compatible with API revisions
+const TEXT_MODEL = process.env.NEXT_PUBLIC_GEMINI_TEXT_MODEL || 'gemini-1.5-flash';
+const MULTIMODAL_MODEL = process.env.NEXT_PUBLIC_GEMINI_MULTIMODAL_MODEL || 'gemini-1.5-pro';
+
 // Get the appropriate model based on AI mode
 export function getAIModel(mode: AIMode = 'balanced') {
-  // Use gemini-pro for text, gemini-pro-vision for multimodal
-  return genAI.getGenerativeModel({ model: 'gemini-pro' });
+  // gemini-1.5-* models support generateContent for text
+  return genAI.getGenerativeModel({ model: TEXT_MODEL });
 }
 
 export function getMultimodalAIModel() {
-  return genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
+  // 1.5 Pro handles images + text in one prompt
+  return genAI.getGenerativeModel({ model: MULTIMODAL_MODEL });
 }
 
 // System prompts for different AI modes
