@@ -83,20 +83,24 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     }
   }, [dyslexicFont]);
 
-  // Save settings to localStorage whenever they change
+  // Save settings to localStorage whenever they change (with debounce)
   useEffect(() => {
-    const settings = {
-      theme,
-      fontSize,
-      reducedMotion,
-      dyslexicFont,
-      defaultAIMode,
-      confettiEnabled,
-      voiceAutoPlay,
-      voiceSpeed,
-      dueDateOffset,
-    };
-    localStorage.setItem('studyape-settings', JSON.stringify(settings));
+    const timeoutId = setTimeout(() => {
+      const settings = {
+        theme,
+        fontSize,
+        reducedMotion,
+        dyslexicFont,
+        defaultAIMode,
+        confettiEnabled,
+        voiceAutoPlay,
+        voiceSpeed,
+        dueDateOffset,
+      };
+      localStorage.setItem('studyape-settings', JSON.stringify(settings));
+    }, 500); // Debounce for 500ms
+
+    return () => clearTimeout(timeoutId);
   }, [theme, fontSize, reducedMotion, dyslexicFont, defaultAIMode, confettiEnabled, voiceAutoPlay, voiceSpeed, dueDateOffset]);
 
   const setTheme = (newTheme: Theme) => {
