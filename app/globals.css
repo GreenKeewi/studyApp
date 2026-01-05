@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-200;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  /* Font size utilities */
+  .text-size-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .text-size-base {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .text-size-lg {
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+
+  .text-size-xl {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* Button styles */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-brand-primary hover:bg-brand-secondary text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-surface dark:bg-dark-surface hover:bg-dark-border text-dark-text-primary;
+  }
+
+  /* Card styles */
+  .card {
+    @apply rounded-xl border transition-all duration-200;
+    @apply bg-light-surface border-light-border;
+    @apply dark:bg-dark-surface dark:border-dark-border;
+  }
+
+  /* Input styles */
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border transition-all duration-200;
+    @apply bg-light-bg border-light-border text-light-text-primary;
+    @apply dark:bg-dark-bg dark:border-dark-border dark:text-dark-text-primary;
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-primary;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Optional: OpenDyslexic font for accessibility */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://www.opendyslexic.org/wp-content/uploads/2020/11/OpenDyslexic-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-dyslexic {
+  font-family: 'OpenDyslexic', 'Space Grotesk', system-ui, sans-serif !important;
+}
+
